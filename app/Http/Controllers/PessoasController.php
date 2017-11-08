@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pessoa;
+use App\Models\User;
+//use Carbon\Carbon;
+
 class PessoasController extends Controller
 {
     /**
@@ -13,9 +16,7 @@ class PessoasController extends Controller
      */
     public function index()
     {
-        $pessoas = Pessoa::all();
-
-        return view('pessoa.index')->with('pessoas',$pessoas);
+       
     }
 
     /**
@@ -25,7 +26,7 @@ class PessoasController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -45,9 +46,19 @@ class PessoasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_usuario)
     {
-        //
+         $pessoa = Pessoa::find($id_usuario);
+
+         if(empty($pessoa) or is_null($pessoa)){
+            return redirect('/home');
+         }else{
+             return view('pessoa.show')->with('pessoa',$pessoa);
+         }
+
+        // return $pessoa->id_usuario;
+       
+       
     }
 
     /**
@@ -69,8 +80,32 @@ class PessoasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $nome = $request->input('nome');
+        $dataNasc = \Carbon\Carbon::createFromFormat('d/m/Y', $request->input('data'));
+        $sexo = $request->input('sexo'); 
+        //return $request;
+        if(empty($nome) or is_null($nome) or empty($sexo) or is_null($sexo) or empty($dataNasc) or is_null($dataNasc)){
+
+            return redirect('/perfil/'.$id)->with('error','VOCÊ TINHA UM TRABALHO.');
+
+        }else{
+            $pessoa = Pessoa::find($id);
+            if(empty($pessoa) or is_null($pessoa)){
+                return redirect('/home');
+            }else{
+                $pessoa->nome = $nome;
+                $pessoa->dt_nascimento =  $dataNasc;
+                $pessoa->sexo =$sexo;
+                $pessoa->save();
+
+                $usuario = User::find($id);
+                $usuario->name = $nome;
+                $usuario->save();
+                return redirect('/home')->with('success', 'perfil atualizado com sucesso');
+            }
+
+        }
     }
 
     /**

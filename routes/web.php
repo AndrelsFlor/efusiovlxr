@@ -61,4 +61,6 @@ Route::post('/naturezas/atualizar/{id}','NaturezasController@update')->middlewar
 
 Route::get('/naturezas/apagar/{id}','NaturezasController@destroy')->middleware('auth');
 
-Route::get('/pessoas','PessoasController@index')->middleware('auth');
+Route::get('/perfil/{id}','PessoasController@show')->middleware('auth');
+
+Route::post('/perfil/atualizar/{id_usuario}','PessoasController@update')->middleware('auth');

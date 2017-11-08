@@ -13,14 +13,25 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {!! Form::open(['url' => '/naturezas/atualizar/'.$natureza->id, 'method' => 'POST']) !!}
+               
+                    {!! Form::open(['url' => '/perfil/atualizar/'.$pessoa->id_usuario, 'method' => 'POST']) !!}
                     <div class="form-group">
-                        {{Form::label('descricao','Descreve essa categoria bem gostoso pra mim')}}
-                        {{Form::text('descricao',$natureza->descricao,['class' => 'form-control','placeholder' => 'HMMM, ELE DESCREVE CATEGORIA.'])}}
+                        {{Form::label('nome','Nome')}}
+                        {{Form::text('nome',$pessoa->nome,['class' => 'form-control','placeholder' => 'HMMM, ELE DESCREVE NOME.'])}}
+                       
+
                     </div>
+                    <div class="form-group">
+                         {{Form::label('data','Data de nascimento')}}
+                        {{Form::dateTime( 'data', $pessoa->dt_nascimento->format('d/m/Y'), ['class'=>'form-control'])}}
+                    </div>
+                     <div class="form-group">
+                       {{Form::label('sexo','Sexo')}}
+                         {{Form::select('sexo', array('m' => 'Masculino', 'f' => 'Feminino'),['class' => 'form-control'])}}
+                    </div>
+
                  {{Form::submit('Enviar',['class'=>'btn btn-primary'])}}
-                        <a id="apagar"  href="/naturezas/apagar/{{$natureza->id}}" class="pull-right btn btn-danger">Apagar</a>
+                       
                   
                    {!! Form::close() !!}
                 </div>
