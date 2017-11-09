@@ -19,6 +19,7 @@
                     <li><a href="/bancas">Bancas</a></li>
                     <li><a href="/categorias">Categorias</a></li>
                     <li><a href="/naturezas">Naturezas</a></li>
+                    <li><a href="/provas">Provas</a></li>
                 </ul>
 
                 </div>

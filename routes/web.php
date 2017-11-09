@@ -64,3 +64,13 @@ Route::get('/naturezas/apagar/{id}','NaturezasController@destroy')->middleware('
 Route::get('/perfil/{id}','PessoasController@show')->middleware('auth');
 
 Route::post('/perfil/atualizar/{id_usuario}','PessoasController@update')->middleware('auth');
+
+Route::get('/provas','ProvasController@index')->middleware('auth');
+
+Route::get('/provas/cadastrar','ProvasController@create')->middleware('auth');
+
+Route::post('/provas/gravar','ProvasController@store')->middleware('auth');
+
+Route::get('/provas/cadastrar/perguntas/{idProva}','PerguntasController@create')->middleware('auth');
+
+Route::post('/provas/gravar/perguntas/{idProva}','PerguntasController@store')->middleware('auth');
