@@ -74,3 +74,5 @@ Route::post('/provas/gravar','ProvasController@store')->middleware('auth');
 Route::get('/provas/cadastrar/perguntas/{idProva}','PerguntasController@create')->middleware('auth');
 
 Route::post('/provas/gravar/perguntas/{idProva}','PerguntasController@store')->middleware('auth');
+
+Route::get('/provas/ver/{idProva}', 'ProvasController@show')->middleware('auth');

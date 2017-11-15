@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prova;
 use App\Models\Banca;
+use App\Models\Questao;
 class ProvasController extends Controller
 {
     /**
@@ -78,7 +79,19 @@ class ProvasController extends Controller
      */
     public function show($id)
     {
-        //
+        $prova =    Prova::find($id);
+        $questao =  new Questao();
+
+        $questoes = $questao->where('id_prova','=',$id)->get();
+
+       
+
+        if(empty($prova) or is_null($prova)){
+            return redirect('/home');
+        }else{
+             return view('provas.show')->with('prova',$prova)->with('questoes',$questoes);
+        }
+       
     }
 
     /**
